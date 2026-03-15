@@ -2,7 +2,6 @@
 
 import { useRef, useEffect, useState, useCallback, type RefObject } from "react";
 import { useScroll, useTransform, useMotionValueEvent } from "framer-motion";
-import { asset } from "@/lib/utils";
 
 interface ScrollVideoProps {
   src: string;
@@ -20,10 +19,7 @@ export function ScrollVideo({
   className = "",
 }: ScrollVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  // Изначально ставим оригинальный src, чтобы избежать ошибки пустой строки
-  const srcUrl = asset(src);
-  const posterUrl = asset(poster);
-  const [videoSrc, setVideoSrc] = useState<string>(srcUrl); 
+  const [videoSrc, setVideoSrc] = useState<string>(src); 
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -32,7 +28,7 @@ export function ScrollVideo({
 
     const loadVideoAsBlob = async () => {
       try {
-        const response = await fetch(srcUrl);
+        const response = await fetch(src);
         if (!response.ok) throw new Error("Network response was not ok");
         const blob = await response.blob();
         
@@ -53,7 +49,7 @@ export function ScrollVideo({
       isMounted = false;
       if (objectUrl) URL.revokeObjectURL(objectUrl);
     };
-  }, [srcUrl]);
+  }, [src]);
 
   const { scrollYProgress } = useScroll({
     target: scrollRef,
@@ -79,7 +75,6 @@ export function ScrollVideo({
   }, []);
 
   useMotionValueEvent(videoProgress, "change", (v) => {
-    // Ждем флаг загрузки, чтобы не ломать первый кадр
     if (!isLoaded) return;
     requestAnimationFrame(() => seekTo(v));
   });
@@ -105,17 +100,12 @@ export function ScrollVideo({
 
   return (
     <div id={mediaId} className={`absolute inset-0 bg-[#181B20] ${className}`}>
-      {/* Постер показывается, пока видео не готово к скроллу */}
       <img 
-        src={posterUrl} 
+        src={poster} 
         alt="" 
         className="absolute inset-0 h-full w-full object-cover"
       />
       
-      {/* 
-        Обязательно проверяем, что videoSrc не пустой,
-        прежде чем рендерить тег <video>, хотя теперь он и так не бывает пустым.
-      */}
       {videoSrc && (
         <video
           ref={videoRef}
@@ -123,7 +113,7 @@ export function ScrollVideo({
           muted
           playsInline
           preload="auto"
-          className={`relative z-10 h-full w-full object-cover transition-opacity duration-500 ${
+          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
             isLoaded ? "opacity-100" : "opacity-0"
           }`}
         />
