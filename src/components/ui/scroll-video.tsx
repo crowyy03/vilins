@@ -21,7 +21,7 @@ export function ScrollVideo({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMounted, setIsMounted] = useState(false);
 
-  // Ждем полной гидратации, чтобы Framer Motion не получал высоту = 0
+  // Ждём гидратацию, чтобы useScroll не считал высоту = 0
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -40,13 +40,16 @@ export function ScrollVideo({
   const seekTo = useCallback((value: number) => {
     const video = videoRef.current;
     if (!video || !isFinite(video.duration) || isNaN(video.duration)) return;
-    const target = Math.min(1, Math.max(0, value)) * video.duration;
-    video.currentTime = target;
+
+    const clamped = Math.min(1, Math.max(0, value));
+    const target = clamped * video.duration;
+    if (isFinite(target)) {
+      video.currentTime = target;
+    }
   }, []);
 
   useMotionValueEvent(videoProgress, "change", (v) => {
-    // Не слушаем скролл, пока DOM полностью не построен
-    if (!isMounted) return;
+    if (!isMounted) return;              // не трогаем до полноценного маунта
     requestAnimationFrame(() => seekTo(v));
   });
 
@@ -64,7 +67,9 @@ export function ScrollVideo({
       video.addEventListener("loadeddata", onReady);
     }
 
-    return () => video.removeEventListener("loadeddata", onReady);
+    return () => {
+      video.removeEventListener("loadeddata", onReady);
+    };
   }, [isMounted, seekTo, videoProgress]);
 
   return (
