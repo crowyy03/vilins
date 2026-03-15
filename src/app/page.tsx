@@ -1,65 +1,116 @@
-import Image from "next/image";
+import { Hero } from "@/components/hero";
+import { StorySection } from "@/components/story-section";
+import { HotspotSection } from "@/components/hotspot-section";
+import { CtaSection } from "@/components/cta-section";
+import { Footer } from "@/components/footer";
+import { storyScenes } from "@/lib/data";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main>
+      <Hero />
+
+      <StorySection
+        id="scene-01"
+        mediaId="scene-01_media"
+        label="01 — Первый шаг"
+        heading="Сначала — понять пространство"
+        headingSize="6xl"
+        subheading="Обмер. Сценарии движения. База для всего металла."
+        paragraph="VILINS выезжает на объект, фиксирует реальную геометрию лобби и сценарии движения. На базе обмеров рождается 3D‑модель и чертежи, к которым позже будет «привязан» весь металл — от стойки ресепшн до последней панели."
+        bullets={[
+          { text: "Выезд инженеров на объект" },
+          { text: "Обмеры и 3D‑модель лобби" },
+          { text: "Концепция навигации и сценариев" },
+        ]}
+        align="left"
+        videoSrc={storyScenes["scene-01"].videoSrc}
+        posterSrc={storyScenes["scene-01"].posterSrc}
+      />
+
+      <StorySection
+        id="scene-02"
+        mediaId="scene-02_media"
+        label="02 — Проектирование"
+        heading="Свой завод и одна из немногих камер нитрида титана в России"
+        headingSize="5xl"
+        paragraph="Рабочие чертежи уходят на собственный завод VILINS: раскрой, гибка, сварка, шлифовка. Здесь металл получает PVD‑покрытие нитридом титана в крупноформатной камере — одна из двух таких в России. Это позволяет держать одинаковый оттенок металла на всех деталях внутри одного лобби и от проекта к проекту."
+        bullets={[
+          { text: "PVD‑камера крупного формата — стабильный оттенок на больших деталях" },
+          { text: "Полный цикл в одном цехе — от раскроя до упаковки" },
+          { text: "Контроль геометрии и цвета на каждом этапе" },
+        ]}
+        align="right"
+        videoSrc={storyScenes["scene-02"].videoSrc}
+        posterSrc={storyScenes["scene-02"].posterSrc}
+      />
+
+      <StorySection
+        id="scene-03"
+        mediaId="scene-03_media"
+        label="03 — Производство"
+        heading="Готовые элементы — на объект"
+        headingSize="6xl"
+        paragraph="После контроля геометрии и цвета каждая стойка, панель и портал упаковываются в комплект под конкретное лобби. Заводская партия уезжает на объект уже в нужной последовательности монтажа — чтобы из пустого пространства можно было быстро собрать готовое решение."
+        bullets={[
+          {
+            text: "Маркировка элементов под конкретное лобби",
+          },
+          { text: "Логистика под график стройки" },
+          { text: "Ответственный за металл с вашей стороны" },
+        ]}
+        align="left"
+        videoSrc={storyScenes["scene-03"].videoSrc}
+        posterSrc={storyScenes["scene-03"].posterSrc}
+      />
+
+      <StorySection
+        id="scene-04"
+        mediaId="scene-04_media"
+        label="04 — Монтаж"
+        heading="Из деталей — в живое пространство"
+        headingSize="5xl"
+        paragraph="На объект выходит не набор разрозненных изделий, а продуманная система: стойки ресепшн, почтовые блоки, панели, навигация, ограждения. VILINS собирает всё в один комплект, чтобы монтаж прошёл быстро и без доработок по месту."
+        facts={[
+          { value: "от 3 мес", label: "полный цикл" },
+          { value: "1 подрядчик", label: "вместо 5 по металлу" },
+          { value: "3D", label: "согласование через макеты" },
+        ]}
+        align="right"
+        videoSrc={storyScenes["scene-04"].videoSrc}
+        posterSrc={storyScenes["scene-04"].posterSrc}
+      />
+
+      <HotspotSection />
+
+      <StorySection
+        id="scene-06"
+        mediaId="scene-06_media"
+        label="06 — Фасад"
+        heading="Тот же металл — на фасаде"
+        headingSize="5xl"
+        paragraph="VILINS выводит язык металла за пределы лобби: фасадные панели, козырьки, входные группы и навигация снаружи. Здание считывается цельно — от улицы до последней кнопки в лифте."
+        facts={[
+          {
+            value: "Кинетика",
+            label: "Кинетические и статичные фасадные панели",
+          },
+          {
+            value: "Защита",
+            label: "Защищённые покрытия под городской климат",
+          },
+          {
+            value: "Концепция",
+            label: "Согласование с архитектурной концепцией",
+          },
+        ]}
+        align="left"
+        videoSrc={storyScenes["scene-06"].videoSrc}
+        posterSrc={storyScenes["scene-06"].posterSrc}
+      />
+
+      <CtaSection />
+      <Footer />
+    </main>
   );
 }

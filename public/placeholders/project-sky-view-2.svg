@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600">
+  <rect width="900" height="600" fill="#22262D"/>
+  <rect x="1" y="1" width="898" height="598" fill="none" stroke="#5B6472" stroke-opacity="0.3" stroke-width="1"/>
+  <text x="450" y="290" text-anchor="middle" font-family="Inter, sans-serif" font-size="28" font-weight="500" fill="#8A919C">Sky View</text>
+  <text x="450" y="330" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" font-weight="300" fill="#5B6472">02</text>
+</svg>
